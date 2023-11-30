@@ -12,10 +12,10 @@
         "value": "mmrabteicontaineregistry.azurecr.io/mmrabtei-appserviceplan"
       },
       " webAppName": {
-        "value": "mmrabtei-webapp"
+        "value": "mmrabtei-appservice"
       },
       "serverfarmName": {
-        "value": "mmrabtei-appserviceplan"
+        "value": "mmrabtei-appservice-plan"
       },
       "location": {
         "value": "Central US"
