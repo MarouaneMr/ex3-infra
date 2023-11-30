@@ -20,10 +20,10 @@ module serverfarm './modules/web/serverfarm/main.bicep' = {
     location: location
     sku: {
       capacity: 1
-      family: B
-      name: B1
-      size: B1
-      tier: Basic
+      family: 'B'
+      name: 'B1'
+      size: 'B1'
+      tier: 'Basic'
     }
     kind: 'Linux'
     reserved: true
