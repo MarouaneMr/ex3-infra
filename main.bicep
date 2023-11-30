@@ -1,5 +1,5 @@
 param registryName string
-param location string = 'Central US'
+param location string 
 param serverfarmName string
 param webAppName string
 param containerRegistryImageName string
