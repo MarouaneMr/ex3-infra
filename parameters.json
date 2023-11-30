@@ -5,6 +5,11 @@
       "registryName": {
         "value": "mmrabteicontaineregistry"
       },
+
+      "serverfarmName": {
+        "value": "mmrabtei-appserviceplan"
+      },
+
       "location": {
         "value": "Central US"
       }
