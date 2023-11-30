@@ -1,0 +1,29 @@
+name: Deploy Bicep Template
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy Bicep template
+      run: |
+        az deployment group create \
+          --resource-group aguadamillas_students_1 \
+          --template-file ./main.bicep \
+          --parameters @parameters.json \
+          --parameters DOCKER_REGISTRY_SERVER_URL=${{ vars.DOCKER_REGISTRY_SERVER_URL }} \
+          --parameters DOCKER_REGISTRY_SERVER_USERNAME=${{ vars.DOCKER_REGISTRY_SERVER_USERNAME }} \
+          --parameters DOCKER_REGISTRY_SERVER_PASSWORD=${{ secrets.DOCKER_REGISTRY_SERVER_PASSWORD }}
