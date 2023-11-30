@@ -42,9 +42,9 @@ module webApp './modules/web/site/main.bicep' = {
     name: webAppName
     location: location
     kind: 'app'
-    serverFarmResourceId: servicePlan.outputs.resourceId
+    serverFarmResourceId: serverfarm.outputs.resourceId
     siteConfig: {
-      linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
+      linuxFxVersion: 'DOCKER|${registryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
       appCommandLine: ''
     }
     appSettingsKeyValuePairs: {
