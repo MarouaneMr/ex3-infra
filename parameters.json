@@ -7,15 +7,9 @@
       },
       "containerRegistryImageVersion": {
         "value": "latest"
-      },
-      "containerRegistryImageName": {
-        "value": "mmrabteicontaineregistry.azurecr.io/mmrabtei-appserviceplan"
-      },
-      " webAppName": {
-        "value": "mmrabtei-appservice"
-      },
+      }, 
       "serverfarmName": {
-        "value": "mmrabtei-appservice-plan"
+        "value": "mmrabtei-appserviceplan"
       },
       "location": {
         "value": "Central US"

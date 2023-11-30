@@ -1,8 +1,8 @@
 param registryName string
 param location string = 'Central US'
 param serverfarmName string
-param webAppName string
-param containerRegistryImageName string
+param webAppName string= 'mmrabtei-webapp'
+param containerRegistryImageName string = 'flask-demo'
 param containerRegistryImageVersion string
 param DOCKER_REGISTRY_SERVER_USERNAME string
 param DOCKER_REGISTRY_SERVER_URL string
@@ -37,7 +37,7 @@ module serverfarm './modules/web/serverfarm/main.bicep' = {
 }
 
 module webApp './modules/web/site/main.bicep' = {
-  name: webAppName
+  name: 'siteModule'
   params: {
     name: webAppName
     location: location
