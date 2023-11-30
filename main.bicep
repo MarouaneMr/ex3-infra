@@ -13,7 +13,7 @@ module registry './modules/container-registry/registry/main.bicep' = {
   }
 }
 
-module serverfarm './modules/app-service-plan/serverfarm/main.bicep' = {
+module serverfarm './modules/web/serverfarm/main.bicep' = {
   name: serverfarmName
   params: {
     name: serverfarmName
