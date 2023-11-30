@@ -20,3 +20,4 @@ jobs:
           --resource-group aguadamillas_students_1 \
           --template-file ./main.bicep \
           --parameters @parameters.json \
+        
