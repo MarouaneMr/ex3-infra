@@ -5,14 +5,14 @@
       "registryName": {
         "value": "mmrabteicontaineregistry"
       },
-      "containerRegistryName": {
-        "value": "mmrabteicontaineregistry"
-      },
       "containerRegistryImageVersion": {
         "value": "latest"
       },
       "containerRegistryImageName": {
         "value": "mmrabteicontaineregistry.azurecr.io/mmrabtei-appserviceplan"
+      },
+      " webAppName": {
+        "value": "mmrabtei-webapp"
       },
       "serverfarmName": {
         "value": "mmrabtei-appserviceplan"
@@ -23,4 +23,3 @@
       }
     }
   }
-  
