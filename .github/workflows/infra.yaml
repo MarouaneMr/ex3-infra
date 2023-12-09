@@ -56,8 +56,8 @@ jobs:
         with:
           subscriptionId: ${{ env.SUBSCRIPTION_ID }}
           resourceGroupName: ${{ env.RESOURCE_GROUP }}
-          template: ./key-vault.bicep
-          parameters: ./key-vault.json 
+          template: ./keyvault.bicep
+          parameters: ./keyvault-parameters.json 
           deploymentName: "${{ env.USER_ALIAS }}-kv"
           failOnStdErr: false
 
