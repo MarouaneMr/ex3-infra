@@ -1,29 +1,27 @@
-param registryName string
-param location string = 'Central US'
-param serverfarmName string
-param webAppName string= 'mmrabtei-webapp'
+param registryName string 
+param location string 
+param appServicePlanName string
+param webAppName string ='mmrabtei-webapp'
 param containerRegistryImageName string = 'flask-demo'
-param containerRegistryImageVersion string
-param DOCKER_REGISTRY_SERVER_USERNAME string
-param DOCKER_REGISTRY_SERVER_URL string
-@secure()
-param DOCKER_REGISTRY_SERVER_PASSWORD string
+param containerRegistryImageVersion string = 'latest'
 
+param keyVaultName string
+param keyVaultSecretNameACRUsername string = 'acr-username'
+param keyVaultSecretNameACRPassword1 string = 'acr-password1'
 
-module registry './modules/container-registry/registry/main.bicep' = {
+resource keyvault 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
+  name: keyVaultName
+ }
+
+// Azure Container Registry module
+resource registry 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
   name: registryName
-  params: {
-    name: registryName
-    location: location
-    acrAdminUserEnabled: true
-    
-  }
-}
+ }
 
 module serverfarm './modules/web/serverfarm/main.bicep' = {
-  name: serverfarmName
+  name: '${appServicePlanName}-deploy'
   params: {
-    name: serverfarmName
+    name: appServicePlanName
     location: location
     sku: {
       capacity: 1
@@ -36,8 +34,14 @@ module serverfarm './modules/web/serverfarm/main.bicep' = {
   }
 }
 
-module webApp './modules/web/site/main.bicep' = {
-  name: 'siteModule'
+// Azure Web App for Linux containers module
+module site './modules/web/site/main.bicep' = {
+  name: webAppName
+  dependsOn: [
+    serverfarm
+    registry
+    keyvault
+  ]
   params: {
     name: webAppName
     location: location
@@ -49,9 +53,9 @@ module webApp './modules/web/site/main.bicep' = {
     }
     appSettingsKeyValuePairs: {
       WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
-      DOCKER_REGISTRY_SERVER_URL: DOCKER_REGISTRY_SERVER_URL
-      DOCKER_REGISTRY_SERVER_USERNAME: DOCKER_REGISTRY_SERVER_USERNAME
-      DOCKER_REGISTRY_SERVER_PASSWORD: DOCKER_REGISTRY_SERVER_PASSWORD
     }
+    dockerRegistryServerUrl: 'https://${registryName}.azurecr.io'
+    dockerRegistryServerUserName: keyvault.getSecret(keyVaultSecretNameACRUsername)
+    dockerRegistryServerPassword: keyvault.getSecret(keyVaultSecretNameACRPassword1)
   }
 }
