@@ -1,4 +1,4 @@
-param registryName string 
+param acrName string 
 param location string 
 param appServicePlanName string
 param webAppName string ='mmrabtei-webapp'
@@ -14,8 +14,8 @@ resource keyvault 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
  }
 
 // Azure Container Registry module
-resource registry 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
-  name: registryName
+resource acr 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
+  name: acrName
  }
 
 module serverfarm './ResourceModules-main/modules/web/serverfarm/main.bicep' = {
@@ -39,7 +39,7 @@ module site './ResourceModules-main/modules/web/site/main.bicep' = {
   name: webAppName
   dependsOn: [
     serverfarm
-    registry
+    acr
     keyvault
   ]
   params: {
@@ -48,13 +48,13 @@ module site './ResourceModules-main/modules/web/site/main.bicep' = {
     kind: 'app'
     serverFarmResourceId: serverfarm.outputs.resourceId
     siteConfig: {
-      linuxFxVersion: 'DOCKER|${registryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
+      linuxFxVersion: 'DOCKER|${acrName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
       appCommandLine: ''
     }
     appSettingsKeyValuePairs: {
       WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
     }
-    dockerRegistryServerUrl: 'https://${registryName}.azurecr.io'
+    dockerRegistryServerUrl: 'https://${acrName}.azurecr.io'
     dockerRegistryServerUserName: keyvault.getSecret(keyVaultSecretNameACRUsername)
     dockerRegistryServerPassword: keyvault.getSecret(keyVaultSecretNameACRPassword1)
   }

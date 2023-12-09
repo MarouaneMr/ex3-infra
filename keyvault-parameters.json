@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "keyVaultName": {
-        "value": "mmrabtei-keyvault"
+        "value": "mmrabtei-keyvault1"
       },
       "location": {
         "value": "North Central US"
       },
-      "registryName": {
+      "acrName": {
         "value": "mmrabtei"
       }
     }

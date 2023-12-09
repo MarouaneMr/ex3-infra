@@ -1,18 +1,18 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "registryName": {
-        "value": "mmrabteicontaineregistry"
-      },
-      "containerRegistryImageVersion": {
-        "value": "latest"
-      }, 
-      "serverfarmName": {
-        "value": "mmrabtei-appserviceplan"
-      },
-      "location": {
-        "value": "North Central US"
-      }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "acrName": {
+      "value": "mmrabtei"
+    },
+    "location": {
+      "value": "North Central US"
+    },
+    "appServicePlanName":{ 
+      "value": "mmrabtei-appserviceplan"
+    },
+    "keyVaultName": {
+      "value": "mmrabtei-keyvault1"
     }
-  }
+}
+}
